@@ -37,6 +37,28 @@ Jeśli kompilacja przejdzie, strategia jest gotowa do uruchomienia.
 
 ---
 
+## 2A) Jeśli kompilujesz w Visual Studio – gdzie skopiować plik?
+Po buildzie z Visual Studio potrzebujesz skopiować **DLL strategii** do folderu, który Quantower skanuje dla Algo.
+
+### Najpewniejsza metoda (polecana)
+1. W Quantower wejdź w **Algo**.
+2. Użyj opcji typu **Open local folder / Open Algo folder** (nazwa może się różnić zależnie od wersji).
+3. Otworzy się katalog użytkownika Quantower.
+4. Wejdź do podfolderu strategii (najczęściej `Algo/Strategies`) i tam skopiuj skompilowaną DLL.
+5. Wróć do Quantower i użyj **Reload/Refresh** w module Algo.
+
+### Typowa ścieżka w Windows (przykład)
+- `C:\Users\<TwojUser>\Documents\Quantower\Algo\Strategies\`
+
+### Co kopiujesz z Visual Studio
+- Plik z builda, np.:
+  - `bin\Debug\<target>\TwojaStrategia.dll`
+  - albo `bin\Release\<target>\TwojaStrategia.dll`
+
+> Jeśli nie widzisz strategii po skopiowaniu DLL, sprawdź logi Algo i zgodność target framework z wersją Quantower.
+
+---
+
 ## 3) Jak uruchomić strategię na wykresie
 1. Otwórz wykres wybranego altcoina i ustaw interwał **1m**.
 2. Dodaj/uruchom strategię **Altcoin M1 Momentum Breakout**.
