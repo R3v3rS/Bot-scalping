@@ -1,14 +1,44 @@
 # Quantower - Altcoin M1 Momentum Breakout
 
-## 1) Jak dodać strategię do Quantower
-1. Otwórz **Quantower** i moduł **Algo**.
-2. Utwórz nową strategię C# (lub otwórz projekt z kodem).
-3. Skopiuj plik `AltcoinM1MomentumBreakoutStrategy.cs` do projektu strategii.
-4. Zbuduj projekt (`Build`).
-5. W Quantower wybierz strategię **Altcoin M1 Momentum Breakout** i przypnij do wykresu **1m**.
-6. Ustaw `Account`, `Symbol`, parametry oraz uruchom strategię.
+Poniżej masz dokładnie **jak przygotować strategię do aplikacji Quantower i ją uruchomić**.
 
-## 2) Parametry startowe
+## 1) Wymagania
+- Zainstalowany **Quantower** (desktop).
+- Aktywne połączenie do brokera/giełdy w Quantower (np. Binance/Bybit itp.).
+- Włączony moduł **Algo** w Quantower.
+
+> Ten repo zawiera gotowy plik strategii: `AltcoinM1MomentumBreakoutStrategy.cs`.
+
+---
+
+## 2) Jak dodać plik strategii do Quantower (najprościej)
+1. Otwórz **Quantower**.
+2. Przejdź do modułu **Algo**.
+3. Utwórz nową strategię C# (np. `New Strategy`).
+4. W edytorze projektu podmień zawartość klasy na kod z pliku:
+   - `Quantower/AltcoinM1MomentumBreakoutStrategy.cs`
+5. Kliknij **Build/Compile**.
+6. Upewnij się, że strategia pojawiła się na liście jako:
+   - `Altcoin M1 Momentum Breakout`.
+
+Jeśli kompilacja przejdzie, strategia jest gotowa do uruchomienia.
+
+---
+
+## 3) Jak uruchomić strategię na wykresie
+1. Otwórz wykres wybranego altcoina i ustaw interwał **1m**.
+2. Dodaj/uruchom strategię **Altcoin M1 Momentum Breakout**.
+3. W parametrach strategii ustaw:
+   - **Account** (konto demo/live),
+   - **Symbol** (instrument),
+   - **Quantity** (wielkość pozycji),
+   - resztę parametrów (poniżej wartości startowe).
+4. Kliknij **Run/Start**.
+5. Sprawdź logi strategii (czy nie ma błędów typu brak konta/symbolu).
+
+---
+
+## 4) Parametry startowe (bezpieczny punkt wyjścia)
 - Fast EMA: `50`
 - Slow EMA: `200`
 - Breakout Lookback: `20`
@@ -18,27 +48,47 @@
 - Volume Multiplier: `1.5`
 - SL ATR Multiplier: `1.5`
 - TP ATR Multiplier: `2.5`
-- Time Stop: `20` bars
+- Enable Time Stop: `true`
+- Time Stop (bars): `20`
+- Allow Long: `true`
+- Allow Short: `true`
 
-## 3) Logika wejścia
-### Long
+---
+
+## 5) Co strategia robi (skrót)
+### Wejście Long
 - EMA(50) > EMA(200)
-- Close wybija najwyższy High z ostatnich 20 świec
+- Zamknięcie świecy wybija najwyższy High z ostatnich 20 świec
 - ATR(14) > SMA(ATR,100)
 - Volume świecy > 1.5 × SMA(Volume,20)
 
-### Short
+### Wejście Short
 - EMA(50) < EMA(200)
-- Close wybija najniższy Low z ostatnich 20 świec
-- ATR i Volume filter jak wyżej
+- Zamknięcie świecy wybija najniższy Low z ostatnich 20 świec
+- Filtry ATR i Volume jak wyżej
 
-## 4) Zarządzanie pozycją
-- Zlecenie Market
-- Stop Loss: `ATR * SL ATR Multiplier`
-- Take Profit: `ATR * TP ATR Multiplier`
-- Time stop: zamknięcie pozycji po zadanej liczbie świec, jeśli nadal otwarta.
+### Wyjście
+- Market entry + SL/TP liczone z ATR
+- Opcjonalny **time stop** (zamknięcie po `Time Stop (bars)`)
 
-## 5) Wskazówki wdrożeniowe
-- Startuj na paper/demo.
-- Dodaj filtry sesji i maksymalny dzienny drawdown przed live.
-- Uwzględnij fee i slippage w testach.
+---
+
+## 6) Najczęstsze problemy i szybkie rozwiązania
+- **"Account not selected"** w logu:
+  - wybierz konto w ustawieniach strategii.
+- Brak transakcji:
+  - sprawdź, czy wykres jest na **1m**,
+  - tymczasowo obniż `Volume Multiplier` (np. 1.2),
+  - sprawdź płynność instrumentu.
+- Za dużo wejść:
+  - zwiększ `Breakout Lookback` (np. 30),
+  - zwiększ `Volume Multiplier` (np. 1.8).
+
+---
+
+## 7) Rekomendowane wdrożenie
+1. Najpierw odpal na **demo/paper** minimum 1–2 tygodnie.
+2. Porównaj wyniki z backtestem (uwzględnij fee i slippage).
+3. Dopiero potem uruchom na małym kapitale live.
+
+Powodzenia — to jest gotowy szablon, który możesz dalej stroić pod konkretne altcoiny.
