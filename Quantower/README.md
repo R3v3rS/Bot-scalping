@@ -1,5 +1,17 @@
 # Quantower - Altcoin M1 Momentum Breakout
 
+## 0) Czy trzeba Visual Studio?
+**Nie, nie musisz używać Visual Studio.**  
+Do uruchomienia tej strategii wystarczy sam **Quantower + moduł Algo**.
+
+Masz 2 opcje:
+1. **Tylko Quantower Algo (najprościej)** – tworzysz nową strategię w Algo, wklejasz kod i klikasz Build/Run.
+2. **Visual Studio (opcjonalnie)** – przydatne, jeśli chcesz wygodniejszą edycję/debug i większy projekt.
+
+Jeśli dopiero zaczynasz, wybierz opcję nr 1 (bez Visual Studio).
+
+---
+
 Poniżej masz dokładnie **jak przygotować strategię do aplikacji Quantower i ją uruchomić**.
 
 ## 1) Wymagania
